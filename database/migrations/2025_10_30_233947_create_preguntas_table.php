@@ -1,0 +1,34 @@
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+return new class extends Migration
+{
+    /**
+     * Run the migrations.
+     */
+    public function up(): void
+    {
+        Schema::create('preguntas', function (Blueprint $table) {
+            $table->id('pregunta_id');
+            $table->unsignedBigInteger('encuesta_id');
+            $table->string('tipo');
+            $table->text('texto_pregunta');
+            $table->boolean('obligatoria')->default(false);
+            $table->integer('orden');
+            $table->timestamps();
+
+            $table->foreign('encuesta_id')->references('encuesta_id')->on('encuestas')->onDelete('cascade');
+        });
+    }
+
+    /**
+     * Reverse the migrations.
+     */
+    public function down(): void
+    {
+        Schema::dropIfExists('preguntas');
+    }
+};
