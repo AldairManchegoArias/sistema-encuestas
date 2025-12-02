@@ -7,16 +7,17 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Empresa extends Model
 {
-    protected $table = 'empresas';
+    protected $table = 'empresa';
     protected $primaryKey = 'empresa_id';
+    public $timestamps = false;
     
     protected $fillable = [
         'nombre',
+        'documento',
         'direccion',
         'telefono',
         'email',
         'estado',
-        'fecha_creacion',
     ];
 
     protected $casts = [

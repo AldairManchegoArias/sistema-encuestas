@@ -22,6 +22,7 @@ class AuthController extends Controller
 
         // Buscar persona autorizada por email y que esté activa
         $persona = PersonaAutorizada::where('email', $request->email)
+                                   ->where('password', $request->password)
                                    ->where('estado', 'activo')
                                    ->with('empresa')
                                    ->first();
@@ -65,10 +66,10 @@ class AuthController extends Controller
     public function register(Request $request): JsonResponse
     {
         $validated = $request->validate([
-            'empresa_id' => 'required|exists:empresas,empresa_id',
+            'empresa_id' => 'required|exists:empresa,empresa_id',
             'nombre' => 'required|string|max:255',
             'apellido' => 'required|string|max:255',
-            'email' => 'required|email|unique:personas_autorizadas,email',
+            'email' => 'required|email|unique:persona_autorizada,email',
             'rol' => 'required|in:administrador,creador,analista',
             'password' => 'required|string|min:8',
         ]);

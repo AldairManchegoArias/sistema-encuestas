@@ -15,23 +15,17 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // Ejecutar seeders en orden de dependencias
-        $this->call([
-            EmpresaSeeder::class,
-            PersonaAutorizadaSeeder::class,
-            EncuestaSeeder::class,
-            PreguntaSeeder::class,
-            OpcionRespuestaSeeder::class,
-            PersonaExternaSeeder::class,
-            RespuestaSeeder::class,
-            RespuestaDetalleSeeder::class,
-        ]);
+        // Ejecutar el seeder del sistema de encuestas
+        $this->call(SistemaEncuestasSeeder::class);
 
         // User::factory(10)->create();
 
-        User::factory()->create([
-            'name' => 'Test User',
-            'email' => 'test@example.com',
-        ]);
+        // Crear usuario de prueba solo si no existe
+        if (!\App\Models\User::where('email', 'test@example.com')->exists()) {
+            User::factory()->create([
+                'name' => 'Test User',
+                'email' => 'test@example.com',
+            ]);
+        }
     }
 }

@@ -5,20 +5,22 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
-class PersonaExterna extends Model
+class Encuestado extends Model
 {
-    protected $table = 'personas_externas';
-    protected $primaryKey = 'persona_externa_id';
+    protected $table = 'encuestado';
+    protected $primaryKey = 'encuestado_id';
+    public $timestamps = false;
     
     protected $fillable = [
         'nombre',
         'email',
         'telefono',
+        'tipo'
     ];
 
     // Relaciones
     public function respuestas(): HasMany
     {
-        return $this->hasMany(Respuesta::class, 'persona_externa_id', 'persona_externa_id');
+        return $this->hasMany(Respuesta::class, 'encuestado_id', 'encuestado_id');
     }
 }

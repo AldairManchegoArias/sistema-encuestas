@@ -29,13 +29,14 @@ class EmpresaController extends Controller
     {
         $validated = $request->validate([
             'nombre' => 'required|string|max:255',
+            'documento' => 'required|string|unique:empresa,documento',
             'direccion' => 'required|string|max:255',
             'telefono' => 'required|string|max:255',
-            'email' => 'required|email|unique:empresas,email',
-            'estado' => 'required|in:activo,inactivo',
+            'email' => 'required|email|unique:empresa,email',
+            'estado' => 'sometimes|in:activo,inactivo',
         ]);
 
-        $validated['fecha_creacion'] = now();
+        $validated['estado'] = $validated['estado'] ?? 'activo';
         
         $empresa = Empresa::create($validated);
         
@@ -70,9 +71,10 @@ class EmpresaController extends Controller
         
         $validated = $request->validate([
             'nombre' => 'sometimes|string|max:255',
+            'documento' => 'sometimes|string|unique:empresa,documento,' . $empresa->empresa_id . ',empresa_id',
             'direccion' => 'sometimes|string|max:255',
             'telefono' => 'sometimes|string|max:255',
-            'email' => 'sometimes|email|unique:empresas,email,' . $empresa->empresa_id . ',empresa_id',
+            'email' => 'sometimes|email|unique:empresa,email,' . $empresa->empresa_id . ',empresa_id',
             'estado' => 'sometimes|in:activo,inactivo',
         ]);
         

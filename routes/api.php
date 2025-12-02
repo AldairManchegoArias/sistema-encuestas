@@ -27,6 +27,12 @@ Route::prefix('auth')->group(function () {
     Route::post('/register', [AuthController::class, 'register']);
 });
 
+// Rutas públicas para testing (sin autenticación)
+Route::prefix('test')->group(function () {
+    Route::get('/empresas', [EmpresaController::class, 'index']);
+    Route::get('/empresas/{id}', [EmpresaController::class, 'show']);
+});
+
 // Rutas públicas para encuestas (sin autenticación)
 Route::prefix('public')->group(function () {
     Route::get('/encuesta/{identificador}', [EncuestaPublicaController::class, 'obtenerEncuesta']);

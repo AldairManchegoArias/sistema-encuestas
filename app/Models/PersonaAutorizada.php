@@ -10,8 +10,9 @@ class PersonaAutorizada extends Model
 {
     use HasApiTokens;
     
-    protected $table = 'personas_autorizadas';
+    protected $table = 'persona_autorizada';
     protected $primaryKey = 'persona_id';
+    public $timestamps = false;
     
     protected $fillable = [
         'empresa_id',
@@ -20,7 +21,6 @@ class PersonaAutorizada extends Model
         'email',
         'rol',
         'estado',
-        'fecha_registro',
     ];
 
     protected $casts = [

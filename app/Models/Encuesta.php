@@ -8,24 +8,24 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Encuesta extends Model
 {
-    protected $table = 'encuestas';
+    protected $table = 'encuesta';
     protected $primaryKey = 'encuesta_id';
+    public $timestamps = false;
     
     protected $fillable = [
         'empresa_id',
         'titulo',
         'descripcion',
+        'config',
         'fecha_inicio',
         'fecha_fin',
-        'url_larga',
-        'url_corta',
-        'qr_code',
-        'estado',
+        'estado'
     ];
 
     protected $casts = [
+        'config' => 'array',
         'fecha_inicio' => 'datetime',
-        'fecha_fin' => 'datetime',
+        'fecha_fin' => 'datetime'
     ];
 
     // Relaciones
